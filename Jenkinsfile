@@ -2,6 +2,7 @@ pipeline {
 	environment {
 		imagename = "docker-playground"
 		registryCredential = 'docker-hub'
+		githubCredentials = 'github'
 	}
     agent {
         node {
@@ -11,7 +12,7 @@ pipeline {
     stages {
         stage('Cloning git') {
             steps {
-                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master'])
+                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master', credentialsId:github])
             }
         }
         stage('Build Image') {
@@ -24,7 +25,7 @@ pipeline {
         stage('Deploy Image') {
 			steps {
 				script {
-					docker.withRegistry('') {
+					docker.withRegistry('', registryCredential) {
 						dockerImage.push("$BUILD_NUMBER")
 						dockerImage.push("latest")
 					}
