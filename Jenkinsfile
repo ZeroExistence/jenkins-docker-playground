@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Cloning git') {
             steps {
-                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master')
+                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master'])
             }
         }
         stage('Build Image') {
