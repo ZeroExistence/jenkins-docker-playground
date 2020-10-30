@@ -1,6 +1,6 @@
 pipeline {
 	environment {
-		imagename = "docker-playground"
+		imagename = "zeroexistence/jenkins-docker-playground"
 		registryCredential = 'docker-hub'
 	}
     agent {
@@ -11,12 +11,12 @@ pipeline {
     stages {
         stage('Build Image') {
             steps {
-                sh 'docker build -t jenkins-docker-playground .'
+                sh 'docker build -t ${imagename} .'
             }
         }
         stage('Deploy Image') {
 			steps {
-				sh 'docker push jenkins-docker-playground'
+				sh 'docker push ${imagename}'
 			}
 		}
     }
