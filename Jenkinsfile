@@ -1,8 +1,8 @@
 pipeline {
 	environment {
 		imagename = "docker-playground"
-		registryCredential = 'docker-hub'
-		githubCredentials = 'github'
+		registryCredential = 'docker-hub-user'
+		githubCredentials = 'github-user'
 	}
     agent {
         node {
