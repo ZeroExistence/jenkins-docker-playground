@@ -9,26 +9,19 @@ pipeline {
         }
     }
     stages {
-        stage('Cloning git') {
-            steps {
-                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master', credentialsId: 'github'])
-            }
-        }
         stage('Build Image') {
             steps {
-                script {
-					dockerImage = docker.build imagename
-				}
+                sh 'docker build -t jenkins-docker-playground .'
+            }
+        }
+        stage('Deploy Image') {
+            steps {
+                sh 'docker build -t jenkins-docker-playground jenkins-docker-playground'
             }
         }
         stage('Deploy Image') {
 			steps {
-				script {
-					docker.withRegistry('', registryCredential) {
-						dockerImage.push("$BUILD_NUMBER")
-						dockerImage.push("latest")
-					}
-				}
+				sh 'docker push jenkins-docker-playground'
 			}
 		}
     }
