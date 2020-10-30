@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Cloning git') {
             steps {
-                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master', credentialsId: 'github'])
+                git([url: 'https://github.com/ZeroExistence/jenkins-docker-playground.git', branch: 'master')
             }
         }
         stage('Build Image') {
@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy Image') {
 			steps {
 				script {
-					docker.withRegistry('', registryCredential) {
+					docker.withRegistry('') {
 						dockerImage.push("$BUILD_NUMBER")
 						dockerImage.push("latest")
 					}
