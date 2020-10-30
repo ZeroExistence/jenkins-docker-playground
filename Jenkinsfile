@@ -15,11 +15,6 @@ pipeline {
             }
         }
         stage('Deploy Image') {
-            steps {
-                sh 'docker build -t jenkins-docker-playground jenkins-docker-playground'
-            }
-        }
-        stage('Deploy Image') {
 			steps {
 				sh 'docker push jenkins-docker-playground'
 			}
